@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: lu.barrea.minesweeper.Launch
+Class-Path: javafx-base-21-mac-aarch64.jar javafx-fxml-21.jar controlsfx
+ -11.1.2.jar ikonli-core-12.3.1.jar ikonli-fontawesome-pack-12.3.1.jar j
+ avafx-fxml-21-mac-aarch64.jar javafx-graphics-21.jar javafx-controls-21
+ -mac-aarch64.jar javafx-base-21.jar javafx-controls-21.jar javafx-graph
+ ics-21-mac-aarch64.jar ikonli-javafx-12.3.1.jar
+

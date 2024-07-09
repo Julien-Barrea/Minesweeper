@@ -1,0 +1,102 @@
+.root{
+    -blue01: #f0f9ff;
+    -blue02: #bae6fd;
+    -blue03: #7dd3fc;
+    -blue04: #38bdf8;
+    -blue05: #0ea5e9;
+    -blue06: #0284c7;
+
+    -pink01: #fda4af;
+    -pink02: #fb7185;
+    -pink03: #f43f5e;
+    -pink04: #e11d48;
+    -pink05: #be123c;
+    -pink06: #9f1239;
+
+    /*colors used for the numbers in the file CaseObserver*/
+    -green01: #84cc16;
+    -yellow01: #eab308;
+    -orange01: #ea580c;
+    -orange02: #c2410c;
+    -red01: #7f1d1d;
+    -red02: #450a0a;
+}
+
+#body{
+    -fx-background-color: -blue01;
+}
+
+.infoBox_left{
+    -fx-spacing: 5px;
+}
+
+.infoBox_left-item{
+    -fx-spacing: 5px;
+    -fx-alignment: center-left;
+    -fx-font-size: 20;
+}
+
+.infoBox_right{
+    -fx-spacing: 5px;
+    -fx-alignment: center-right;
+}
+
+.icons{
+    -fx-alignment: center;
+    -fx-font-size: 20;
+}
+
+.menuButtons{
+    -fx-background-color: -blue03;
+    -fx-border-color: -blue06;
+    -fx-border-radius: 4;
+}
+
+.menuButtons:hover{
+    -fx-background-color: -blue04;
+}
+
+.menuButtons:pressed{
+    -fx-background-color: -blue05;
+}
+
+.case {
+    -fx-background-radius: 0px;
+    -fx-border-color: -pink03;
+    -fx-border-width: 1px;
+    -fx-min-width: 2em;
+    -fx-min-height: 2em;
+    -fx-alignment: center;
+    -fx-font-size: 15;
+}
+
+.covered_case{
+    -fx-background-color: -blue02;
+}
+
+.uncovered_case{
+    -fx-background-color: -blue01;
+    -fx-border-color: -blue01;
+    -fx-border-radius: 0px;
+    -fx-font-weight: bold !important;
+    -fx-font-family: "ui-sans-serif";
+}
+
+.exploded_case{
+    -fx-background-color: -blue01;
+    -fx-text-fill: -pink04;
+}
+
+.active_case:hover {
+    -fx-background-color: -blue03;
+}
+
+.active_case:pressed {
+    -fx-background-color: -blue04;
+}
+
+#gameStateLabel{
+    -fx-text-alignment: center;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
