@@ -1,0 +1,2 @@
+# Minesweeper
+First javafx projects
