@@ -163,12 +163,14 @@ public class Game {
     }
 
     /**
-     * Reveal all of the mines on the board whatever their current state, and stop the game.
+     * Reveal all the mines on the board whatever their current state, and stop the game.
      */
-    protected void explosion(){
-        this.state = StateGame.LOST;
-        this.stateChangeSupport.firePropertyChange("state", null, this.state);
-        this.board.revealMines();
+    protected void explosion() {
+        if(this.state != StateGame.LOST) {
+            this.state = StateGame.LOST;
+            this.stateChangeSupport.firePropertyChange("state", null, this.state);
+            this.board.revealMines();
+        }
     }
 
     @Override

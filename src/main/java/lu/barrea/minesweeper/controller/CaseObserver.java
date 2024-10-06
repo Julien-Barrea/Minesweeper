@@ -1,5 +1,6 @@
 package lu.barrea.minesweeper.controller;
 
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Paint;
 import lu.barrea.minesweeper.model.StateCase;
@@ -37,48 +38,50 @@ public class CaseObserver implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals("state")) {
-            if (evt.getNewValue() == StateCase.REVEALED)
-            {
-                b.getStyleClass().add("uncovered_case");
-                b.getStyleClass().remove("active_case");
-            }
-            else if (evt.getNewValue() == StateCase.FLAGGED)
-            {
-                b.setGraphic(flagIcon);
-            }
-            else
-            {
-                b.setGraphic(new FontIcon());
-            }
-        }
-
-        if(evt.getPropertyName().equals("value")){
-            if (evt.getNewValue().equals("mine")){
-                b.getStyleClass().add("exploded_case");
-                b.setGraphic(bombIcon);
-            }else{
-                b.setText(evt.getNewValue().toString());
-                switch (evt.getNewValue().toString()){
-                    case "1":
-                        b.setTextFill(Paint.valueOf("#84cc16"));
-                        break;
-                    case "2":
-                        b.setTextFill(Paint.valueOf("#eab308"));
-                        break;
-                    case "3":
-                        b.setTextFill(Paint.valueOf("#ea580c"));
-                        break;
-                    case "4":
-                        b.setTextFill(Paint.valueOf("#c2410c"));
-                        break;
-                    case "5":
-                        b.setTextFill(Paint.valueOf("#7f1d1d"));
-                        break;
-                    default:
-                        b.setTextFill(Paint.valueOf("#450a0a"));
+        Platform.runLater(()->{
+            if(evt.getPropertyName().equals("state")) {
+                if (evt.getNewValue() == "revealed")
+                {
+                    b.getStyleClass().add("uncovered_case");
+                    b.getStyleClass().remove("active_case");
+                }
+                else if (evt.getNewValue() == "flagged")
+                {
+                    b.setGraphic(flagIcon);
+                }
+                else
+                {
+                    b.setGraphic(new FontIcon());
                 }
             }
-        }
+
+            if(evt.getPropertyName().equals("value")){
+                if (evt.getNewValue().equals("*")){
+                    b.getStyleClass().add("exploded_case");
+                    b.setGraphic(bombIcon);
+                }else{
+                    b.setText(evt.getNewValue().toString());
+                    switch (evt.getNewValue().toString()){
+                        case "1":
+                            b.setTextFill(Paint.valueOf("#84cc16"));
+                            break;
+                        case "2":
+                            b.setTextFill(Paint.valueOf("#eab308"));
+                            break;
+                        case "3":
+                            b.setTextFill(Paint.valueOf("#ea580c"));
+                            break;
+                        case "4":
+                            b.setTextFill(Paint.valueOf("#c2410c"));
+                            break;
+                        case "5":
+                            b.setTextFill(Paint.valueOf("#7f1d1d"));
+                            break;
+                        default:
+                            b.setTextFill(Paint.valueOf("#450a0a"));
+                    }
+                }
+            }
+        });
     }
 }

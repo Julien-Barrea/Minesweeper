@@ -14,17 +14,21 @@ public class Case {
     private List<Case> neighbors;
 
     public Case(){
-        this.state = StateCase.HIDDEN;
+        this.state = StateCaseHidden.getInstance();
         this.neighbors = null;
         this.changeSupport = new PropertyChangeSupport(this);
     }
 
-    public void setNeighbors(List<Case> neighbors){
-        this.neighbors = neighbors;
+    protected void setState(StateCase state){
+        this.state = state;
     }
 
-    public List<Case> getNeighbors(){
-        return this.neighbors;
+    protected PropertyChangeSupport getPropertyChangeSupport(){
+        return changeSupport;
+    }
+
+    public void setNeighbors(List<Case> neighbors){
+        this.neighbors = neighbors;
     }
 
     /**
@@ -36,32 +40,10 @@ public class Case {
     }
 
     /**
-     * Remove an exsting observer from this object.
-     * @param listener a valid observer.
-     */
-    public void removePropertyChangeListener(PropertyChangeListener listener){
-        this.changeSupport.removePropertyChangeListener(listener);
-    }
-
-    /**
      * Change the state of the case to flagged if it's hidden,
      * or the hidden if its flagged. This method doesn't do anything if the case is revealed.
      */
-    public void flag(){
-        if (state == StateCase.HIDDEN)
-        {
-            if(Game.getInstance().decrementFlag()){
-                this.state = StateCase.FLAGGED;
-                this.changeSupport.firePropertyChange("state", StateCase.HIDDEN, StateCase.FLAGGED);
-            }
-        }
-        else if(state == StateCase.FLAGGED)
-        {
-            Game.getInstance().incrementFlag();
-            state = StateCase.HIDDEN;
-            this.changeSupport.firePropertyChange("state", StateCase.FLAGGED, StateCase.HIDDEN);
-        }
-    }
+    public void flag(){ state.flag(this); }
 
     /**
      * Reveal this case if it is both hidden and not flagged. And also increment by one
@@ -69,28 +51,25 @@ public class Case {
      * If the case is neither a mine, nor a number, it also call the reveal method on all
      * its neighbors.
      */
-    public void reveal(){
-        if(state == StateCase.HIDDEN){
-            state = StateCase.REVEALED;
-            this.changeSupport.firePropertyChange("state", StateCase.HIDDEN, StateCase.REVEALED);
-            Game.getInstance().decrementCasesLeftToReveal();
-            for(Case c : neighbors) c.reveal();
-        }
+    public void reveal(){ state.reveal(this); }
+
+    /**
+     * Execute the action required when a case is revealed.
+     */
+    protected void revealAction(){
+        for(Case c : neighbors) c.reveal();
+        Game.getInstance().decrementCasesLeftToReveal();
     }
 
-    public String toSring(){
-        String str = new String();
-        switch (state){
-            case HIDDEN:
-                str = "#";
-                break;
-            case FLAGGED:
-                str = "\033[32mF\033[0m";
-                break;
-            case REVEALED:
-                str = " ";
-                break;
-        }
-        return str;
-    }
+    /**
+     * Display a case accurately to its current state.
+     * @return a string representing its current state
+     */
+    public String toSring(){  return state.displayCase(this);  }
+
+    /**
+     * Display the character which should be used when a case is revealed.
+     * @return a string of 1 character representing this specific kind of case
+     */
+    protected String displayValue(){ return " "; }
 }
