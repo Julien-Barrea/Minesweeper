@@ -113,9 +113,15 @@ public class Board {
     /**
      * Reveal all the mines on the board whatever their current state.
      */
-    public void revealMines(){
+    public void revealMines() {
         for(CaseMine mine : mines){
-            mine.forceReveal();
+            Thread t = new Thread(()->{
+                try {
+                    Thread.sleep((int)(Math.random() * 3000));
+                }catch (InterruptedException e){}
+                mine.forceReveal();
+            });
+            t.start();
         }
     }
 

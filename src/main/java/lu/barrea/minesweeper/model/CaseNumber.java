@@ -5,7 +5,7 @@ package lu.barrea.minesweeper.model;
  * It contains the number of mines around it.
  */
 public class CaseNumber extends Case{
-    int number;
+    private int number;
 
     public CaseNumber(){
         super();
@@ -13,27 +13,15 @@ public class CaseNumber extends Case{
     }
 
     /**
-     * Reveal this case and increment the number of cases revealed in the game.
-     * @note This method does not behave recursively as its super class does.
-     */
-    @Override
-    public void reveal() {
-        if(state == StateCase.HIDDEN){
-            state = StateCase.REVEALED;
-            Game.getInstance().decrementCasesLeftToReveal();
-            this.changeSupport.firePropertyChange("state", StateCase.HIDDEN, StateCase.REVEALED);
-            this.changeSupport.firePropertyChange("value", null, this.toSring());
-        }
-    }
-
-    /**
      * Increment the number of this case by one.
      */
-    public void increment() {
+    protected void increment() {
         this.number++;
     }
 
-    public String toSring(){
-        return state == StateCase.REVEALED ? ""+number : super.toSring();
-    }
+    @Override
+    protected void revealAction(){ Game.getInstance().decrementCasesLeftToReveal(); }
+
+    @Override
+    protected String displayValue(){ return ""+number ; }
 }
